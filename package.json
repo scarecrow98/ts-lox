@@ -1,0 +1,22 @@
+{
+  "name": "lox-ts-interpreter",
+  "version": "1.0.0",
+  "description": "This is a TypeScript based interpreter for the Lox language as shown in Crafting Interpreters by Robert Nystrom",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node ./dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "interpreters",
+    "programming-languages",
+    "compilers"
+  ],
+  "author": "Ferenc Revesz",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3"
+  }
+}
