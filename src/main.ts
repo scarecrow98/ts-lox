@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { Lexer, tokenToString } from "./lexing";
+import { Lexer, formatToken } from "./lexing";
 
 const content = readFileSync('./test/test.lox', 'utf-8').toString();
 
@@ -9,6 +9,6 @@ const tokens = lexer.scan();
 
 console.log('===========================================');
 
-tokens.forEach(token => {
-  console.log(tokenToString(token));
-});
+console.table(
+  tokens.map(token => formatToken(token))
+);

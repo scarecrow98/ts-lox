@@ -10,7 +10,7 @@ export enum TokenType {
   LESS, LESS_EQUAL,
 
   // Literals.
-  IDENTIFIER, STRING, NUMBER,
+  IDENTIFIER, STRING, NUMBER, COMMENT,
 
   // Keywords.
   AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR,
@@ -41,6 +41,19 @@ export type Token = {
   line: number
 }
 
-export const tokenToString = (token: Token): string => {
-  return `Token [${TokenType[token.type]}]\t\t"${token.lexeme.replace(/\r\n/, '\\r\\n')}" on line ${token.line}.`;
+export const formatToken = (token: Token) => {
+  let literal: unknown;
+
+  if (typeof token.literal === 'number') {
+    literal = token.literal + '';
+  } else if (typeof token.literal === 'string') {
+    literal = '"' + token.literal?.replace(/\r\n/, '\\r\\n') + '"';
+  } else {
+    literal = token.lexeme;
+  }
+
+  return {
+    type: TokenType[token.type],
+    value: literal
+  };
 }

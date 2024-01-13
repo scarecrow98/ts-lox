@@ -1,5 +1,5 @@
 import { Logger } from "../logging";
-import { Token, TokenType } from "../lexing";
+import { Token, TokenType } from "./Token";
 
 const KEYWORDS: Record<string, TokenType> = {
   'and':      TokenType.AND,
@@ -95,10 +95,7 @@ export class Lexer {
         break;
       case '/':
         if (this.match('/')) {
-          // comment spans the whole line
-          while (this.peek() !== '\n' && !this.isAtEnd()) {
-            this.advance();
-          }
+          this.comment();
         } else {
           this.addToken(TokenType.SLASH);
         }
@@ -124,6 +121,15 @@ export class Lexer {
           this.logger.reportError(`Unrecognized character "${char}"`, this.line);
         }
     }
+  }
+
+  private comment() {
+    // comment spans the whole line
+    while (this.peek() !== '\n' && !this.isAtEnd()) {
+      this.advance();
+    }
+
+    this.addToken(TokenType.COMMENT, this.input.substring(this.start + 2, this.current - 1).trim());
   }
 
   private string() {
