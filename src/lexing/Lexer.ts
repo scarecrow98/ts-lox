@@ -1,5 +1,5 @@
-import { Logger } from "../logging/Logger";
-import { Token, TokenType } from "./Token";
+import { Logger } from "../logging";
+import { Token, TokenType } from "../lexing";
 
 const KEYWORDS: Record<string, TokenType> = {
   'and':      TokenType.AND,
